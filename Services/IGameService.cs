@@ -7,7 +7,7 @@ using WebGamesCatalog.ViewModel;
 
 namespace WebGamesCatalog.Services
 {
-    public interface IGameService
+    public interface IGameService : IDisposable
     {
         Task<List<GameViewModel>> Get(int page, int quantity);
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebGamesCatalog.Excepctions;
 using WebGamesCatalog.InputModel;
 using WebGamesCatalog.Services;
 using WebGamesCatalog.ViewModel;
@@ -52,12 +53,10 @@ namespace WebGamesCatalog.Controllers.V1
 
                 return Ok(game);
             }
-            //catch (GameExistException ex)
-            catch(Exception)
+            catch (GameExistException)
             {
-                return UnprocessableEntity("Já temos um jogo com o mesmo nome e produtora!!");
+                throw new GameExistException();
             }
-           
         }
 
         [HttpPut("{idGame:guid}")]
@@ -69,10 +68,9 @@ namespace WebGamesCatalog.Controllers.V1
 
                 return Ok();
             }
-            //catch (GameNoExistException ex)
-            catch (Exception)
+            catch (GameNoExistException)
             {
-                return NotFound("Nós não temos esse jogo!!");
+                throw new GameNoExistException();
             }
         }
 
@@ -86,10 +84,9 @@ namespace WebGamesCatalog.Controllers.V1
 
                 return Ok();
             }
-            //catch (GameNoExistException ex)
-            catch (Exception)
+            catch (GameNoExistException)
             {
-                return NotFound("Nós não temos esse jogo!!");
+                throw new GameNoExistException();
             }
         }
         [HttpDelete("{idGame:guid}")]
@@ -101,10 +98,10 @@ namespace WebGamesCatalog.Controllers.V1
 
                 return Ok(idGame);
             }
-            //catch (GameNoExistException ex)
-            catch (Exception)
+
+            catch (GameNoExistException)
             {
-                return NotFound("Nós não temos esse jogo!!");
+                throw new GameNoExistException();
             }
         }
     }
