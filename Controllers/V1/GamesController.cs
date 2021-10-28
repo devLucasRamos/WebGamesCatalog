@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebGamesCatalog.InputModel;
+using WebGamesCatalog.Services;
+using WebGamesCatalog.ViewModel;
 
 namespace WebGamesCatalog.Controllers.V1
 {
@@ -10,36 +14,98 @@ namespace WebGamesCatalog.Controllers.V1
     [ApiController]
     public class GamesController : Controller
     {
-        [HttpGet]
-        public async Task<ActionResult<List<object>>> Obter()
+        private readonly IGameService _gameService;
+
+        public GamesController(IGameService gameService)
         {
-            return Ok();
+            _gameService = gameService;
         }
-        [HttpGet("{idJogo:guid}")]
-        public async Task<ActionResult<List<object>>> ObterByGuid(Guid idJogo)
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<GameViewModel>>> Get([FromQuery,Range(1,int.MaxValue)] int page = 1, [FromQuery, Range(1,50)] int quantity = 5)
         {
-            return Ok();
+            var games = await _gameService.Get(page,quantity);
+
+            if (games.Count() == 0)
+                return NoContent();
+
+            return Ok(games);
+        }
+
+        [HttpGet("{idGame:guid}")]
+        public async Task<ActionResult<List<GameViewModel>>> GetByGuid([FromRoute] Guid idGame)
+        {
+            var game = await _gameService.GetByGuid(idGame);
+
+            if (game == null)
+                return NoContent();
+
+            return Ok(game);
         }
 
         [HttpPost]
-        public async Task<ActionResult<object>> InserirJogo(object jogo)
+        public async Task<ActionResult<GameViewModel>> InsertGame([FromBody]GameInputModel gameInputModel)
         {
-            return Ok();
+            try
+            {
+                var game = await _gameService.InsertGame(gameInputModel);
+
+                return Ok(game);
+            }
+            //catch (GameExistException ex)
+            catch(Exception)
+            {
+                return UnprocessableEntity("Já temos um jogo com o mesmo nome e produtora!!");
+            }
+           
         }
-        [HttpPut("{idJogo:guid}")]
-        public async Task<ActionResult> AtualizarJogo(Guid idJogo,object jogo)
+
+        [HttpPut("{idGame:guid}")]
+        public async Task<ActionResult> GameAtt([FromRoute] Guid idGame, [FromBody] GameInputModel gameInputModel)
         {
-            return Ok();
+            try
+            {
+                await _gameService.GameAtt(idGame, gameInputModel);
+
+                return Ok();
+            }
+            //catch (GameNoExistException ex)
+            catch (Exception)
+            {
+                return NotFound("Nós não temos esse jogo!!");
+            }
         }
-        [HttpPatch("{idJogo:guid}/preco/{preco:double}")]
-        public async Task<ActionResult> AtualizarPrecoJogo(Guid idJogo, double preco)
+
+
+        [HttpPatch("{idGame:guid}/price/{price:double}")]
+        public async Task<ActionResult> GamePriceAtt([FromRoute] Guid idGame, [FromRoute] double price)
         {
-            return Ok();
+            try
+            {
+                await _gameService.GamePriceAtt(idGame, price);
+
+                return Ok();
+            }
+            //catch (GameNoExistException ex)
+            catch (Exception)
+            {
+                return NotFound("Nós não temos esse jogo!!");
+            }
         }
-        [HttpDelete("{idJogo:guid}")]
-        public async Task<AcceptedResult> ApagarJogo(Guid idJogo)
+        [HttpDelete("{idGame:guid}")]
+        public async Task<ActionResult> EraseGame([FromRoute] Guid idGame)
         {
-            return Ok();
+            try
+            {
+                await _gameService.EraseGame(idGame);
+
+                return Ok(idGame);
+            }
+            //catch (GameNoExistException ex)
+            catch (Exception)
+            {
+                return NotFound("Nós não temos esse jogo!!");
+            }
         }
     }
 }
