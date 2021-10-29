@@ -12,7 +12,7 @@ using WebGamesCatalog.ViewModel;
 
 namespace WebGamesCatalog.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
         public readonly IGameRepository _gameRepository;
 
@@ -62,7 +62,7 @@ namespace WebGamesCatalog.Services
             };
         }
 
-        public async Task<GameViewModel> InsertGame(GameViewModel game)
+        public async Task<GameViewModel> InsertGame(GameInputModel game)
         {
 
             var gameEntity = await _gameRepository.GetByName(game.Name,game.Prod);

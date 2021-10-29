@@ -14,7 +14,7 @@ namespace WebGamesCatalog.Repositories
 
         Task<Game> GetByGuid(Guid id);
 
-        Task<Game> InsertGame(Game game);
+        Task InsertGame(Game game);
 
         Task GameAtt(Game game);
 

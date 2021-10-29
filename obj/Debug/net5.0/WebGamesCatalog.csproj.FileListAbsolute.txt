@@ -22,7 +22,6 @@ C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\stat
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\staticwebassets\WebGamesCatalog.StaticWebAssets.xml
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\scopedcss\bundle\WebGamesCatalog.styles.css
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\WebGamesCatalog.RazorTargetAssemblyInfo.cache
-C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\WebGamesCatalog.csproj.CopyComplete
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\WebGamesCatalog.dll
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\ref\WebGamesCatalog.dll
 C:\Users\User\source\repos\WebGamesCatalog\WebGamesCatalog\obj\Debug\net5.0\WebGamesCatalog.pdb

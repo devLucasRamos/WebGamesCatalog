@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebGamesCatalog.Repositories;
+using WebGamesCatalog.Services;
 
 namespace WebGamesCatalog
 {
@@ -27,6 +29,8 @@ namespace WebGamesCatalog
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameRepository, GameRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -27,7 +27,7 @@ namespace WebGamesCatalog.Controllers.V1
         {
             var games = await _gameService.Get(page,quantity);
 
-            if (games.Count() == 0)
+            if (games.Count == 0)
                 return NoContent();
 
             return Ok(games);
