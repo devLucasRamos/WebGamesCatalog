@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using WebGamesCatalog.Entities;
 using WebGamesCatalog.Excepctions;
 using WebGamesCatalog.InputModel;
 using WebGamesCatalog.Repositories;
-using WebGamesCatalog.Services;
 using WebGamesCatalog.ViewModel;
 
 namespace WebGamesCatalog.Services
